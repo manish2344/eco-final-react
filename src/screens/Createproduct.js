@@ -1,83 +1,103 @@
 import { useState } from 'react'
 import axios from "axios"
-import { useSelector } from 'react-redux'
 import {useNavigate} from 'react-router-dom';
-// import "./App.css"
-// import {Typography, TextField, Button} from '@mui/material';
-
+import { useDispatch, useSelector } from 'react-redux';
+import classes from './create.module.css'
 export default function App() {
+  const { userInfo } = useSelector((state) => state.auth)
   const navigate = useNavigate();
-  // const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token")
   const [file, setFile] = useState()
-  const [name, setName] = useState("")
-  const [price, setPrice] = useState("")
-  const [category, setCategory] = useState("")
+  const [name, setname] = useState("")
+  const [price, setprice] = useState("")
+  const [category, setcategory] = useState("")
   const [desc, setDesc] = useState("")
-  const { userInfo } = useSelector((state) => state.auth);
-  const submit = async event => {
+  const categories = [
+    'all',
+    'cloth',
+    'laptop',
+    'phone',
+    'books'
+  ]
+
+  const handleCreateBlog = async event => {
     event.preventDefault()
   
     const formData = new FormData()
     formData.append("image", file)
     formData.append("name", name)
     formData.append("price", price)
-    formData.append("category",category)
+    formData.append("category", category)
     formData.append("desc",desc)
-  
-    const result = await axios.post('https://eco-final-node.onrender.com/api/product/create', formData,{
+   
+    const result = await axios.post("https://eco-portfolio-website.onrender.com/api/product/create",formData,{
     headers: {'Authorization': `Bearer ${userInfo.token}`}})
     console.log(result.data)
     navigate('/');
   }
 
   return (
-    <div style={{margin:'5%'}}>
-                  < h4> Add product</h4> <br/>
-      <form onSubmit={submit}>
-      <div className="inputbox">
+<div className={classes.container}>
+<div className={classes.wrapper}>
+  <h2 className={classes.title}>Create Product</h2>
+  <form onSubmit={handleCreateBlog} encType="multipart/form-data">
+    <div className={classes.inputWrapper}>
+      <label>Name: </label>
       <input
-          onChange={e => setName(e.target.value)} 
-          type="text"
-          placeholder='name'
-        ></input>
-        </div>
-        <br/>
-        <div className="inputbox">
-        <input
+        type="text"
+        placeholder='Name...'
+        className={classes.input}
+        onChange={(e) => setname(e.target.value)}
+    
+      />
+    </div>
+    <div className={classes.inputWrapper}>
+      <label>price: </label>
+      <input
+        type="text"
+        placeholder='price...'
+        className={classes.input}
+        onChange={(e) => setprice(e.target.value)}
+    
+      />
+    </div>
+    <div className={classes.inputWrapper}>
+      <label>Description: </label>
+      <input
+        type="text"
+        placeholder='Description...' 
+
+        className={classes.input}
+        onChange={(e) => setDesc(e.target.value)}
+      />
+    </div>
+    <div className={classes.inputWrapperSelect}>
+      <label>Category: </label>
+      
+      <select   value={category}   className={classes.input} onChange={(e) => setcategory(e.target.value)}>
+        {categories.map((category) => (
+          <option key={crypto.randomUUID()} value={category}>{category}</option>
+        ))}
+      </select>
+    </div>
+    <div className={classes.inputWrapperImg}>
+      <input
+        id="image"
+        type="file"
+        className={classes.input}
+          // style={{ display: 'none' }}
           filename={file} 
           onChange={e => setFile(e.target.files[0])} 
-          type="file" 
           accept="image/*"
-        ></input>
-        </div>
-        <br/>
-          <div className="inputbox">
-        <input
-          onChange={e => setPrice(e.target.value)} 
-          type="text"
-          placeholder='price'
-        ></input>
-        </div>
-        <br/>
-        <div className="inputbox">
-          <input
-          onChange={e => setCategory(e.target.value)} 
-          type="text"
-          placeholder='category'
-        ></input>
-        </div>
-        <br/>
-        <div className="inputbox">
-          <input
-          onChange={e => setDesc(e.target.value)} 
-          type="text"
-          placeholder='desc'
-        ></input>
-        </div>
-        <br/>
-         
-        <button type="submit">Submit</button>
-      </form>
+      />
     </div>
+    <div className={classes.buttonWrapper}>
+      <button className={classes.submitBtn} type="submit">
+        Submit form
+      </button>
+    </div>
+  </form>
+</div>
+</div>
   )
 }

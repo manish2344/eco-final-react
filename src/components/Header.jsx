@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate,Link } from 'react-router-dom';
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
+import './header.css'
 import { getTotals } from "../slices/Cart";
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -31,10 +32,10 @@ dispatch(getTotals)
 
   return (
     <header>
-      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
+      <Navbar bg='dark' variant='dark'   expand='lg' collapseOnSelect className='nav'>
         <Container>
           <LinkContainer to='/'>
-            <Navbar.Brand>MERN Auth</Navbar.Brand>
+            <Navbar.Brand className='logo'>MANISH Eco</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
@@ -64,7 +65,7 @@ dispatch(getTotals)
           </NavDropdown.Item>
         </NavDropdown>
           ):(
-            <NavDropdown title={userInfo.userdata.name} id='username'>
+            <NavDropdown title={userInfo.userdata.name } id='username'>
           <LinkContainer to='/profile'>
             <NavDropdown.Item>Profile</NavDropdown.Item>
           </LinkContainer>

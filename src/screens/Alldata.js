@@ -12,7 +12,7 @@ function Alldata() {
     loadusser();
   }, []);
   const loadusser = async () => {
-    var response = await axios.get("https://eco-final-node.onrender.com/api/product/getall", {
+    var response = await axios.get("https://eco-portfolio-website.onrender.com/api/product/getall", {
       headers: { accesstoken: token },
     });
     setProductList(response.data);
@@ -23,7 +23,7 @@ function Alldata() {
     navigate("/");
   };
   const deleteuser= async(_id)=>{
-    await axios.delete(`http://localhost:7000/api/product/delete/${_id}`,{
+    await axios.delete(`https://eco-portfolio-website.onrender.com/api/product/delete/${_id}`,{
     headers: { accesstoken: token }});
     navigate("/");
 }

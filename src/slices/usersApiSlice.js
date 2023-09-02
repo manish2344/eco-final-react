@@ -1,5 +1,5 @@
 import { apiSlice } from './apiSlice';
-const USERS_URL = 'https://eco-final-node.onrender.com/api/user';
+const USERS_URL = 'https://eco-portfolio-website.onrender.com/api/user';
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

@@ -4,12 +4,11 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import classes from './categories.module.css'
 import { addToCart } from "../slices/Cart.js";
-// import "./item.css";
-import { toast } from "react-toastify";
 
 function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading ,setloading]=  useState(true)
   const { cart } = useSelector((state) => state.cart);
   const [Product, setProducts] = useState([]);
   const [filteredProduct, setFilteredProduct] = useState([])
@@ -19,20 +18,18 @@ function Home() {
     'cloth',
     'laptop',
     'phone',
-    'design',
-    'programming',
-    'fun',
-    'fashion'
+    'books'
   ]
   useEffect(() => {
     loadusser();
   }, []);
   const loadusser = async () => {
-    var response = await axios.get("https://eco-final-node.onrender.com/api/product/getall", {
+    var response = await axios.get("https://eco-portfolio-website.onrender.com/api/product/getall", {
       // headers: { accesstoken: token },
     });
     setFilteredProduct(response.data);
     setProducts(response.data);
+    setloading(false)
     console.log(response.data)
   };
   useEffect(() => {
@@ -58,7 +55,7 @@ function Home() {
   
   return (
     <>
-      {/* <div className={classes.categories}>
+      <div className={classes.categories}>
             {categories.map((category) => (
               <span
                 key={crypto.randomUUID()}
@@ -68,15 +65,19 @@ function Home() {
                 {category}
               </span>
             ))}
-      </div> */}
+      </div>
       <div className="home-container">
         <>
-          <h2>New Arrivals</h2>
+          <h2 className="header">New Arrivals</h2>
+          {loading && <div className={classes.loading}>Loading.....</div>}
+        
           <div className="products">
-            {filteredProduct.map((product) => (
+            {
+            filteredProduct.map((product) => (
                 <div key={product._id} className="product">
+                       <h3><b>{product.name}</b></h3>
                   <Link to={`/post/${product._id}`} className="postlink">
-                  <h3>{product.name}</h3>
+             
                   </Link>
                   <Link to={`/product/${product._id}`} className="postlink">
                   <img src={product.avatar} alt={product.name} />

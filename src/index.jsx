@@ -20,6 +20,7 @@ import Createproduct from './screens/Createproduct.js';
 import Productdetaile from './screens/Productdetaile.js';
 import Alldata from './screens/Alldata.js';
 import Cart from './screens/Cart.js';
+import Edit from './screens/Edit.js';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
       <Route path='/register' element={<RegisterScreen />} />
       <Route path='/addproduct' element={<Createproduct />} />
       <Route path='/alldata' element={<Alldata/>} />
+      <Route path='/edit/:_id' element={<Edit/>} />
       {/* <Route path='/product' element={<Createproduct />} /> */}
       <Route path='/product/:_id' element={<Productdetaile />} />
       <Route path='' element={<PrivateRoute />}>

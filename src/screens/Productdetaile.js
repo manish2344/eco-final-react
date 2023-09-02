@@ -3,6 +3,7 @@ import axios from "axios";
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
+
 import "./Productdetaile.css"
 function Productdetaile() {
   const [detailProduct, setProductList] = useState([]);
@@ -13,7 +14,7 @@ function Productdetaile() {
     loadusser();
   }, []);
   const loadusser = async () => {
-    var response = await axios.get(`https://eco-final-node.onrender.com/api/product/find/${_id}`
+    var response = await axios.get(`https://eco-portfolio-website.onrender.com/api/product/find/${_id}`
     );
     setProductList(response.data);
     console.log(response.data)
